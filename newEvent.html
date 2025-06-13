@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Events - Photography Portfolio</title>
+    <link rel="stylesheet" href="navbar.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+  
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: url("photo.jpg");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            height: 100vh;
+            overflow-x: hidden;
+            padding: 0;
+            margin: 0;
+        }
+
+        .main-layout {
+            display: flex;
+            height: 100vh;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .form-container-wrapper {
+            flex: 0 0 45%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
+            overflow-y: auto;
+            animation: slideInLeft 0.8s ease-out;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .events-container-wrapper {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
+            overflow-y: auto;
+            animation: slideInRight 0.8s ease-out;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 30px;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .header {
+            background: linear-gradient(135deg, rgba(107, 206, 255, 0.755), rgba(54, 55, 55, 0.458));
+            padding: 30px;
+            text-align: center;
+            color: rgb(255, 255, 255);
+            border-radius: 20px 20px 0 0;
+        }
+
+        .header h1 {
+            font-size: 2.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-container {
+            padding: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .form-group:nth-child(even) {
+            animation-delay: 0.1s;
+        }
+
+        .form-group:nth-child(odd) {
+            animation-delay: 0.2s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #ffffff;
+            font-size: 1.1em;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.1);
+            color: #cacaca;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: rgba(102, 183, 234, 0.8);
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+            transform: translateY(-2px);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 18px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            margin: 30px auto 0;
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.4);
+            background: linear-gradient(135deg, #5a67d8, #6b46c1);
+        }
+
+        .submit-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .events-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .events-header h2 {
+            color: #ffffff;
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .events-header p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1em;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .event-card {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+            color: white;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            animation: slideIn 0.6s ease-out;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .event-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .event-title {
+            font-size: 1.4em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #ffffff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .event-details {
+            opacity: 0.9;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        .no-events {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+            font-style: italic;
+            padding: 60px 20px;
+            font-size: 1.2em;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+        }
+
+        /* Custom scrollbar */
+        .form-container-wrapper::-webkit-scrollbar,
+        .events-container-wrapper::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .form-container-wrapper::-webkit-scrollbar-track,
+        .events-container-wrapper::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        .form-container-wrapper::-webkit-scrollbar-thumb,
+        .events-container-wrapper::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 4px;
+        }
+
+        .form-container-wrapper::-webkit-scrollbar-thumb:hover,
+        .events-container-wrapper::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #5a67d8, #6b46c1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .main-layout {
+                flex-direction: column;
+                height: auto;
+                min-height: 100vh;
+            }
+            
+            .form-container-wrapper {
+                flex: none;
+            }
+            
+            .events-container-wrapper {
+                flex: none;
+                min-height: 400px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1, .events-header h2 {
+                font-size: 1.8em;
+            }
+            
+            .form-container {
+                padding: 30px 20px;
+            }
+            
+            .main-layout {
+                padding: 10px;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+           background: url("photo.jpg");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 300;
+            color: #fff;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 2px;
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            margin: 20px auto;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: #aaa;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        .add-image-btn {
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-bottom: 40px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        .add-image-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            background: #2a2a2a;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            min-height: 200px;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+            display: block;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.8), rgba(254, 202, 87, 0.8));
+            opacity: 0;
+            background: linear-gradient(135deg, #2a2a2a00, #e2e2e229);
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            transition: all 0.4s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .overlay-text {
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 500;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .image-text {
+            padding: 15px 20px;
+            background: #2a2a2ab0;
+            color: #fff;
+            font-size: 0.95rem;
+            line-height: 1.4;
+            border-radius: 0 0 15px 15px;
+            margin-top: -5px;
+        }
+
+        .image-text.above {
+            border-radius: 15px 15px 0 0;
+            margin-top: 0;
+            margin-bottom: -5px;
+        }
+
+        .edit-text-btn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .gallery-item:hover .edit-text-btn {
+            opacity: 1;
+        }
+
+        .edit-text-btn:hover {
+            background: #4834d4;
+            color: white;
+        }
+
+        .text-modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .text-modal-content {
+            background-color: #2a2a2ab0;
+            margin: 10% auto;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            color: white;
+        }
+
+        .text-modal h3 {
+            margin-bottom: 20px;
+            color: #ff6b6b;
+        }
+
+        .text-modal textarea {
+            width: 100%;
+            height: 100px;
+            background: #3a3a3a;
+            border: 1px solid #555;
+            border-radius: 8px;
+            color: white;
+            padding: 10px;
+            font-family: inherit;
+            font-size: 14px;
+            resize: vertical;
+            margin-bottom: 15px;
+        }
+
+        .text-modal select {
+            width: 100%;
+            background: #3a3a3a;
+            border: 1px solid #555;
+            border-radius: 8px;
+            color: white;
+            padding: 10px;
+            font-family: inherit;
+            margin-bottom: 20px;
+        }
+
+        .text-modal-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .text-modal button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .save-btn {
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            color: white;
+        }
+
+        .cancel-btn {
+            background: #555;
+            color: white;
+        }
+
+        .save-btn:hover, .cancel-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .placeholder-item {
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed #555;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .placeholder-item:hover {
+            border-color: #ff6b6b;
+            background: linear-gradient(135deg, #3a3a3a, #4a4a4a);
+        }
+
+        .placeholder-text {
+            color: #888;
+            font-size: 1.1rem;
+            text-align: center;
+        }
+
+        .delete-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .gallery-item:hover .delete-btn {
+            opacity: 1;
+        }
+
+        .delete-btn:hover {
+            background: #ff4757;
+            color: white;
+        }
+
+        .permanent-item .delete-btn {
+            display: none !important;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            position: relative;
+            margin: auto;
+            padding: 0;
+            width: 90%;
+            max-width: 1200px;
+            max-height: 90%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .modal img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .close:hover {
+            color: #ff6b6b;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .container {
+                padding: 20px 15px;
+            }
+        }
+
+        #fileInput {
+            display: none;
+        }
+    </style>
+</head>
+
+
+
+<body>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            padding-top: 80px; /* Space for fixed navbar */
+        }
+
+        .main_box {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(135deg, #667eea00 0%, #764ba200 100%);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .navbar_content {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 15px 30px;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .logo_main {
+            flex-shrink: 0;
+        }
+
+        .logo1 {
+            color: white;
+            text-decoration: none;
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .logo1:hover {
+            color: #f0f0f0;
+        }
+
+        .menu1 {
+            display: flex;
+            align-items: center;
+            flex: 1;
+        }
+
+        .menu1 ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .menu1 li {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .menu1 li a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            padding: 8px 12px;
+            border-radius: 5px;
+        }
+
+        .menu1 li a:hover {
+            background-color: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        .menu1 li i {
+            color: white;
+            font-size: 16px;
+        }
+
+        /* Smaller screens - reduce spacing but keep everything visible */
+        @media screen and (max-width: 1200px) {
+            .navbar_content {
+                gap: 20px;
+                padding: 12px 20px;
+            }
+            
+            .menu1 ul {
+                gap: 15px;
+            }
+            
+            .logo1 {
+                font-size: 20px;
+            }
+            
+            .menu1 li a {
+                font-size: 14px;
+                padding: 6px 8px;
+            }
+        }
+
+        @media screen and (max-width: 900px) {
+            .navbar_content {
+                gap: 15px;
+                padding: 10px 15px;
+            }
+            
+            .menu1 ul {
+                gap: 10px;
+            }
+            
+            .logo1 {
+                font-size: 18px;
+            }
+            
+            .menu1 li a {
+                font-size: 12px;
+                padding: 4px 6px;
+            }
+            
+            .menu1 li i {
+                font-size: 14px;
+            }
+        }
+
+        /* Demo content */
+        .content {
+            padding: 40px 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .content h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .content p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+
+
+
+
+
+
+    
+    <div class="main_box">
+        <div class="navbar_content">
+            <div class="logo_main">
+                <a class="logo1" href="#">ASU PHOTOGRAPHY</a>
+            </div>
+            
+            <div class="menu1">
+                <ul>
+                    <li>
+                        <i class="fa-solid fa-house"></i>
+                        <a href="new.html">Home</a>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-image"></i>
+                        <a href="addimage4.html">Gallery</a>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        <a href="sortcuts.html">Shortcuts</a>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-photo-film"></i>
+                        <a href="exibits.html">Exhibits</a>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-calendar-days"></i>
+                        <a href="newEvent.html">Events</a>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-store"></i>
+                        <a href="store.html">Store</a>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-phone"></i>
+                        <a href="conatact.html">Contact</a>
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-comments"></i>
+                        <a href="#">Feedback</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Demo content -->
+    
+</body>
+</html>
+
+
+    <div class="main-layout">
+        <!-- Left Side - Form -->
+        <div class="form-container-wrapper">
+            <div class="header">
+                <h1>📸 Add Photography Event</h1>
+                <p>Create stunning memories with professional photography</p>
+            </div>
+
+            <div class="form-container">
+                <form id="eventForm">
+                    <div class="form-group">
+                        <label for="eventTitle">Event Title</label>
+                        <input type="text" id="eventTitle" name="eventTitle" placeholder="e.g., Wedding Photography, Portrait Session" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="eventDate">Event Date</label>
+                            <input type="date" id="eventDate" name="eventDate" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="eventTime">Event Time</label>
+                            <input type="time" id="eventTime" name="eventTime" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="eventType">Photography Type</label>
+                        <select id="eventType" name="eventType" required>
+                            <option value="">Select Photography Type</option>
+                            <option value="wedding">Wedding Photography</option>
+                            <option value="portrait">Portrait Session</option>
+                            <option value="family">Family Photography</option>
+                            <option value="corporate">Corporate Event</option>
+                            <option value="fashion">Fashion Shoot</option>
+                            <option value="product">Product Photography</option>
+                            <option value="landscape">Landscape Photography</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="eventLocation">Location</label>
+                        <input type="text" id="eventLocation" name="eventLocation" placeholder="e.g., Central Park, Studio A, Client's Home" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="clientName">Client Name</label>
+                            <input type="text" id="clientName" name="clientName" placeholder="Client or Contact Person" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="clientContact">Contact Information</label>
+                            <input type="text" id="clientContact" name="clientContact" placeholder="Phone or Email" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="eventDescription">Event Description</label>
+                        <textarea id="eventDescription" name="eventDescription" placeholder="Describe the photography requirements, special requests, or important details..."></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="duration">Duration (hours)</label>
+                            <input type="number" id="duration" name="duration" min="1" max="24" placeholder="4" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="price">Price ($)</label>
+                            <input type="number" id="price" name="price" min="0" step="0.01" placeholder="500.00">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="submit-btn">✨ Add Photography Event</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Right Side - Events List -->
+        <div class="events-container-wrapper">
+            <div class="events-header">
+                <h2>📅 Upcoming Events</h2>
+                <p>Your scheduled photography sessions</p>
+            </div>
+            
+            <div id="eventsContainer">
+                <div class="no-events">
+                    <h3>🎯 Ready to Schedule!</h3>
+                    <p>No events scheduled yet.<br>Add your first photography event using the form on the left!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let events = [];
+
+        document.getElementById('eventForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const event = {
+                id: Date.now(),
+                title: formData.get('eventTitle'),
+                date: formData.get('eventDate'),
+                time: formData.get('eventTime'),
+                type: formData.get('eventType'),
+                location: formData.get('eventLocation'),
+                clientName: formData.get('clientName'),
+                clientContact: formData.get('clientContact'),
+                description: formData.get('eventDescription'),
+                duration: formData.get('duration'),
+                price: formData.get('price')
+            };
+
+            events.push(event);
+            displayEvents();
+            this.reset();
+            
+            // Success animation
+            const btn = document.querySelector('.submit-btn');
+            btn.innerHTML = '✅ Event Added Successfully!';
+            btn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+            
+            setTimeout(() => {
+                btn.innerHTML = '✨ Add Photography Event';
+                btn.style.background = 'linear-gradient(135deg, #667eea, #764ba2)';
+            }, 2500);
+        });
+
+        function displayEvents() {
+            const container = document.getElementById('eventsContainer');
+            
+            if (events.length === 0) {
+                container.innerHTML = `
+                    <div class="no-events">
+                        <h3>🎯 Ready to Schedule!</h3>
+                        <p>No events scheduled yet.<br>Add your first photography event using the form on the left!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // Sort events by date
+            events.sort((a, b) => new Date(a.date + ' ' + a.time) - new Date(b.date + ' ' + b.time));
+
+            container.innerHTML = events.map(event => {
+                const eventDate = new Date(event.date + ' ' + event.time);
+                const formattedDate = eventDate.toLocaleDateString('en-US', { 
+                    weekday: 'long', 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                });
+                const formattedTime = eventDate.toLocaleTimeString('en-US', { 
+                    hour: '2-digit', 
+                    minute: '2-digit' 
+                });
+
+                return `
+                    <div class="event-card">
+                        <div class="event-title">${event.title}</div>
+                        <div class="event-details">
+                            <strong>📅 Date:</strong> ${formattedDate}<br>
+                            <strong>🕐 Time:</strong> ${formattedTime}<br>
+                            <strong>📍 Location:</strong> ${event.location}<br>
+                            <strong>👤 Client:</strong> ${event.clientName} (${event.clientContact})<br>
+                            <strong>📷 Type:</strong> ${event.type.charAt(0).toUpperCase() + event.type.slice(1)}<br>
+                            <strong>⏱️ Duration:</strong> ${event.duration} hours
+                            ${event.price ? `<br><strong>💰 Price:</strong> $${parseFloat(event.price).toFixed(2)}` : ''}
+                            ${event.description ? `<br><strong>📝 Notes:</strong> ${event.description}` : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+    </script>
+</body>
+</html>

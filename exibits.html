@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exhibits - ASU Photography</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: url("photo.jpg");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+       
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+           background: none;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .hero-content {
+            z-index: 2;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #58a6fa, #4ecdc4, #b8b9b9);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient 3s ease infinite;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Exhibits Grid */
+        .exhibits-section {
+            padding: 8rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 600;
+            margin-bottom: 4rem;
+            color: #ffffff;
+        }
+
+        .exhibits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 3rem;
+            margin-bottom: 6rem;
+        }
+
+        .exhibit-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .exhibit-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .exhibit-image {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .exhibit-image::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .exhibit-image::after {
+            content: '📸';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2rem;
+        }
+
+        .exhibit-content {
+            padding: 2rem;
+        }
+
+        .exhibit-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+
+        .exhibit-description {
+            color: #cccccc;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .exhibit-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            color: #999999;
+            margin-bottom: 1.5rem;
+        }
+
+        .view-btn {
+            background: linear-gradient(45deg, #6bbfff, #393a3a);
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .view-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 107, 107, 0.3);
+        }
+
+        /* Featured Section */
+        .featured-section {
+         background: none;
+            padding: 6rem 2rem;
+            margin: 4rem 0;
+        }
+
+        .featured-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .featured-title {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            background: linear-gradient(45deg, #62d8f9, #a6a9a8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .featured-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .featured-item:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .featured-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            
+            
+            .exhibits-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .exhibits-section {
+                padding: 4rem 1rem;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Sidebar from original */
+        
+/* 
+        #check {
+            display: none;
+        }
+
+        .btn1_1 {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn1_1:hover {
+            background: rgba(255, 107, 107, 0.8);
+        }
+
+        
+
+        
+
+        .logo_main {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo1 {
+            color: #ffffff;
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .btn2 {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+        }
+
+        .menu1 ul {
+            list-style: none;
+            margin-top: 3rem;
+        }
+
+        .menu1 li {
+            margin: 1.5rem 0;
+        }
+
+        .menu1 a {
+            color: #ffffff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.5rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .menu1 a:hover {
+            background: rgba(255, 107, 107, 0.2);
+            transform: translateX(10px);
+        } */
+
+      
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+           background: url("photo.jpg");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 300;
+            color: #fff;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 2px;
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            margin: 20px auto;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: #aaa;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        .add-image-btn {
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-bottom: 40px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        .add-image-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            background: #2a2a2a;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            min-height: 200px;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+            display: block;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.8), rgba(254, 202, 87, 0.8));
+            opacity: 0;
+            background: linear-gradient(135deg, #2a2a2a00, #e2e2e229);
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            transition: all 0.4s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .overlay-text {
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 500;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .image-text {
+            padding: 15px 20px;
+            background: #2a2a2ab0;
+            color: #fff;
+            font-size: 0.95rem;
+            line-height: 1.4;
+            border-radius: 0 0 15px 15px;
+            margin-top: -5px;
+        }
+
+        .image-text.above {
+            border-radius: 15px 15px 0 0;
+            margin-top: 0;
+            margin-bottom: -5px;
+        }
+
+        .edit-text-btn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .gallery-item:hover .edit-text-btn {
+            opacity: 1;
+        }
+
+        .edit-text-btn:hover {
+            background: #4834d4;
+            color: white;
+        }
+
+        .text-modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .text-modal-content {
+            background-color: #2a2a2ab0;
+            margin: 10% auto;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            color: white;
+        }
+
+        .text-modal h3 {
+            margin-bottom: 20px;
+            color: #ff6b6b;
+        }
+
+        .text-modal textarea {
+            width: 100%;
+            height: 100px;
+            background: #3a3a3a;
+            border: 1px solid #555;
+            border-radius: 8px;
+            color: white;
+            padding: 10px;
+            font-family: inherit;
+            font-size: 14px;
+            resize: vertical;
+            margin-bottom: 15px;
+        }
+
+        .text-modal select {
+            width: 100%;
+            background: #3a3a3a;
+            border: 1px solid #555;
+            border-radius: 8px;
+            color: white;
+            padding: 10px;
+            font-family: inherit;
+            margin-bottom: 20px;
+        }
+
+        .text-modal-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .text-modal button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .save-btn {
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            color: white;
+        }
+
+        .cancel-btn {
+            background: #555;
+            color: white;
+        }
+
+        .save-btn:hover, .cancel-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .placeholder-item {
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed #555;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .placeholder-item:hover {
+            border-color: #ff6b6b;
+            background: linear-gradient(135deg, #3a3a3a, #4a4a4a);
+        }
+
+        .placeholder-text {
+            color: #888;
+            font-size: 1.1rem;
+            text-align: center;
+        }
+
+        .delete-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .gallery-item:hover .delete-btn {
+            opacity: 1;
+        }
+
+        .delete-btn:hover {
+            background: #ff4757;
+            color: white;
+        }
+
+        .permanent-item .delete-btn {
+            display: none !important;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            position: relative;
+            margin: auto;
+            padding: 0;
+            width: 90%;
+            max-width: 1200px;
+            max-height: 90%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .modal img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .close:hover {
+            color: #ff6b6b;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .container {
+                padding: 20px 15px;
+            }
+        }
+
+        #fileInput {
+            display: none;
+        }
+    </style>
+</head>
+
+
+
+<body>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            padding-top: 80px; /* Space for fixed navbar */
+        }
+
+        .main_box {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(135deg, #667eea00 0%, #764ba200 100%);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .navbar_content {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 15px 30px;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .logo_main {
+            flex-shrink: 0;
+        }
+
+        .logo1 {
+            color: white;
+            text-decoration: none;
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .logo1:hover {
+            color: #f0f0f0;
+        }
+
+        .menu1 {
+            display: flex;
+            align-items: center;
+            flex: 1;
+        }
+
+        .menu1 ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .menu1 li {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .menu1 li a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            padding: 8px 12px;
+            border-radius: 5px;
+        }
+
+        .menu1 li a:hover {
+            background-color: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        .menu1 li i {
+            color: white;
+            font-size: 16px;
+        }
+
+        /* Smaller screens - reduce spacing but keep everything visible */
+        @media screen and (max-width: 1200px) {
+            .navbar_content {
+                gap: 20px;
+                padding: 12px 20px;
+            }
+            
+            .menu1 ul {
+                gap: 15px;
+            }
+            
+            .logo1 {
+                font-size: 20px;
+            }
+            
+            .menu1 li a {
+                font-size: 14px;
+                padding: 6px 8px;
+            }
+        }
+
+        @media screen and (max-width: 900px) {
+            .navbar_content {
+                gap: 15px;
+                padding: 10px 15px;
+            }
+            
+            .menu1 ul {
+                gap: 10px;
+            }
+            
+            .logo1 {
+                font-size: 18px;
+            }
+            
+            .menu1 li a {
+                font-size: 12px;
+                padding: 4px 6px;
+            }
+            
+            .menu1 li i {
+                font-size: 14px;
+            }
+        }
+
+        /* Demo content */
+        .content {
+            padding: 40px 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .content h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .content p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+
+
+
+
+
+
+    
+    <div class="main_box">
+        <div class="navbar_content">
+            <div class="logo_main">
+                <a class="logo1" href="#">ASU PHOTOGRAPHY</a>
+            </div>
+            
+            <div class="menu1">
+                <ul>
+                    <li>
+                        <i class="fa-solid fa-house"></i>
+                        <a href="new.html">Home</a>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-image"></i>
+                        <a href="addimage4.html">Gallery</a>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        <a href="sortcuts.html">Shortcuts</a>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-photo-film"></i>
+                        <a href="exibits.html">Exhibits</a>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-calendar-days"></i>
+                        <a href="newEvent.html">Events</a>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-store"></i>
+                        <a href="store.html">Store</a>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-phone"></i>
+                        <a href="conatact.html">Contact</a>
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-comments"></i>
+                        <a href="#">Feedback</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Demo content -->
+    
+</body>
+</html>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Photography Exhibits</h1>
+            <p>Explore curated collections of moments frozen in time, where each photograph tells a unique story of emotion, beauty, and artistic vision.</p>
+        </div>
+    </section>
+
+    <!-- Featured Section -->
+    <section class="featured-section">
+        <div class="featured-content">
+            <h2 class="featured-title">Featured Collections</h2>
+            <p style="font-size: 1.2rem; color: #cccccc; margin-bottom: 2rem;">
+                Discover our most captivating photography series, each carefully curated to showcase different aspects of life and artistry.
+            </p>
+            <div class="featured-grid">
+                <div class="featured-item fade-in">
+                    <div class="featured-icon">🏆</div>
+                    <h3>Award Winners</h3>
+                    <p>Our most recognized and celebrated photographs from various competitions and exhibitions.</p>
+                </div>
+                <div class="featured-item fade-in">
+                    <div class="featured-icon">🎨</div>
+                    <h3>Artistic Vision</h3>
+                    <p>Creative compositions that push the boundaries of traditional photography.</p>
+                </div>
+                <div class="featured-item fade-in">
+                    <div class="featured-icon">🌟</div>
+                    <h3>Client Favorites</h3>
+                    <p>The most beloved shots chosen by our clients and community.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Exhibits Grid -->
+    <section class="exhibits-section">
+        <h2 class="section-title">Current Exhibitions</h2>
+        
+        <div class="exhibits-grid">
+            <div class="exhibit-card fade-in">
+                <div class="exhibit-image" id="exhibit-image1" >
+                    <style> 
+               #exhibit-image1 {
+          background: url("https://i.pinimg.com/736x/2f/93/ca/2f93ca8ea27e9358f3e8fffcd5797753.jpg");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+                 }; </style> </div>
+                <div class="exhibit-content">
+                    <h3 class="exhibit-title">Monsoon Memories</h3>
+                    <div class="exhibit-meta">
+                        <span>25 Photos</span>
+                        <span>Wedding Collection</span>
+                    </div>
+                    <p class="exhibit-description">
+                        A breathtaking collection capturing the romance and magic of monsoon weddings. Each frame tells a story of love blooming amidst nature's most dramatic season.
+                    </p>
+                    <a href="#" class="view-btn">View Collection</a>
+                </div>
+            </div>
+
+            <div class="exhibit-card fade-in">
+                <div class="exhibit-image" id="exhibit-image2">
+                    <style> 
+               #exhibit-image2 {
+          background: url("https://i.pinimg.com/736x/45/3e/12/453e129ea55a280c3bdd57abe723a0d3.jpg");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+                 }; </style>
+                </div>
+                <div class="exhibit-content">
+                    <h3 class="exhibit-title">Golden Hour Portraits</h3>
+                    <div class="exhibit-meta">
+                        <span>18 Photos</span>
+                        <span>Portrait Series</span>
+                    </div>
+                    <p class="exhibit-description">
+                        Intimate portraits captured during the magical golden hour, showcasing the warm, ethereal light that brings out the soul in every subject.
+                    </p>
+                    <a href="#" class="view-btn">View Collection</a>
+                </div>
+            </div>
+
+            <div class="exhibit-card fade-in">
+                <div class="exhibit-image" id="exhibit-image3">
+                    <style> 
+               #exhibit-image3 {
+          background: url("https://i.pinimg.com/736x/11/82/d0/1182d0b4b6b7fc79ebbf8e21ecff1a47.jpg");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+                 }; </style>
+                </div>
+                <div class="exhibit-content">
+                    <h3 class="exhibit-title">Street Life Chronicles</h3>
+                    <div class="exhibit-meta">
+                        <span>32 Photos</span>
+                        <span>Documentary</span>
+                    </div>
+                    <p class="exhibit-description">
+                        Raw, unfiltered moments from the bustling streets, capturing the essence of daily life, emotions, and the beauty found in ordinary moments.
+                    </p>
+                    <a href="#" class="view-btn">View Collection</a>
+                </div>
+            </div>
+
+            <div class="exhibit-card fade-in">
+                <div class="exhibit-image" id="exhibit-image4">
+                     <style> 
+               #exhibit-image4 {
+          background: url("https://i.pinimg.com/736x/1b/cc/95/1bcc9557737ba7fa688232fdcb2e034c.jpg");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+                 }; </style></div>
+                <div class="exhibit-content">
+                    <h3 class="exhibit-title">Festival of Colors</h3>
+                    <div class="exhibit-meta">
+                        <span>28 Photos</span>
+                        <span>Cultural Events</span>
+                    </div>
+                    <p class="exhibit-description">
+                        Vibrant celebrations and cultural festivals captured in all their glory, showcasing the joy, tradition, and community spirit.
+                    </p>
+                    <a href="#" class="view-btn">View Collection</a>
+                </div>
+            </div>
+
+            <div class="exhibit-card fade-in">
+                <div class="exhibit-image" id="exhibit-image5">
+                    <style> 
+               #exhibit-image5 {
+          background: url("https://i.pinimg.com/736x/65/27/2b/65272b5ceded8a924a0974f66ae6badf.jpg");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+                 }; </style>
+                </div>
+                <div class="exhibit-content">
+                    <h3 class="exhibit-title">Fashion Forward</h3>
+                    <div class="exhibit-meta">
+                        <span>20 Photos</span>
+                        <span>Fashion & Editorial</span>
+                    </div>
+                    <p class="exhibit-description">
+                        Contemporary fashion photography that blends style with storytelling, featuring cutting-edge designs and creative compositions.
+                    </p>
+                    <a href="#" class="view-btn">View Collection</a>
+                </div>
+            </div>
+
+            <div class="exhibit-card fade-in">
+                <div class="exhibit-image" id="exhibit-image6">
+                    <style> 
+               #exhibit-image6 {
+          background: url("https://i.pinimg.com/736x/18/e2/a9/18e2a9a29e57065ca51f0b93b57ae491.jpg");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+                 }; </style>
+                </div>
+                <div class="exhibit-content">
+                    <h3 class="exhibit-title">Nature's Canvas</h3>
+                    <div class="exhibit-meta">
+                        <span>35 Photos</span>
+                        <span>Landscape & Nature</span>
+                    </div>
+                    <p class="exhibit-description">
+                        Breathtaking landscapes and nature photography that captures the raw beauty and power of the natural world in stunning detail.
+                    </p>
+                    <a href="#" class="view-btn">View Collection</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Fade in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                navbar.style.background = 'rgba(0, 0, 0, 0.95)';
+            } else {
+                navbar.style.background = 'rgba(0, 0, 0, 0.9)';
+            }
+        });
+
+        // Close sidebar when clicking outside
+        document.addEventListener('click', (e) => {
+            const sidebar = document.querySelector('.sidebar_menu');
+            const checkbox = document.querySelector('#check');
+            const menuBtn = document.querySelector('.btn1_1');
+            
+            if (!sidebar.contains(e.target) && !menuBtn.contains(e.target) && checkbox.checked) {
+                checkbox.checked = false;
+            }
+        });
+    </script>
+</body>
+</html>

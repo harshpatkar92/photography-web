@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pre-Wedding Photography Gallery</title>
+    <link rel="stylesheet" href="navbar.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+           background: url("photo.jpg");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 300;
+            color: #fff;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 2px;
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            margin: 20px auto;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: #aaa;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        .add-image-btn {
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-bottom: 40px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        .add-image-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            background: #2a2a2a;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            min-height: 200px;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+            display: block;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.8), rgba(254, 202, 87, 0.8));
+            opacity: 0;
+            background: linear-gradient(135deg, #2a2a2a00, #e2e2e229);
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            transition: all 0.4s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .overlay-text {
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 500;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .image-text {
+            padding: 15px 20px;
+            background: #2a2a2ab0;
+            color: #fff;
+            font-size: 0.95rem;
+            line-height: 1.4;
+            border-radius: 0 0 15px 15px;
+            margin-top: -5px;
+        }
+
+        .image-text.above {
+            border-radius: 15px 15px 0 0;
+            margin-top: 0;
+            margin-bottom: -5px;
+        }
+
+        .edit-text-btn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .gallery-item:hover .edit-text-btn {
+            opacity: 1;
+        }
+
+        .edit-text-btn:hover {
+            background: #4834d4;
+            color: white;
+        }
+
+        .text-modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .text-modal-content {
+            background-color: #2a2a2ab0;
+            margin: 10% auto;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            color: white;
+        }
+
+        .text-modal h3 {
+            margin-bottom: 20px;
+            color: #ff6b6b;
+        }
+
+        .text-modal textarea {
+            width: 100%;
+            height: 100px;
+            background: #3a3a3a;
+            border: 1px solid #555;
+            border-radius: 8px;
+            color: white;
+            padding: 10px;
+            font-family: inherit;
+            font-size: 14px;
+            resize: vertical;
+            margin-bottom: 15px;
+        }
+
+        .text-modal select {
+            width: 100%;
+            background: #3a3a3a;
+            border: 1px solid #555;
+            border-radius: 8px;
+            color: white;
+            padding: 10px;
+            font-family: inherit;
+            margin-bottom: 20px;
+        }
+
+        .text-modal-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .text-modal button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .save-btn {
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            color: white;
+        }
+
+        .cancel-btn {
+            background: #555;
+            color: white;
+        }
+
+        .save-btn:hover, .cancel-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .placeholder-item {
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed #555;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .placeholder-item:hover {
+            border-color: #ff6b6b;
+            background: linear-gradient(135deg, #3a3a3a, #4a4a4a);
+        }
+
+        .placeholder-text {
+            color: #888;
+            font-size: 1.1rem;
+            text-align: center;
+        }
+
+        .delete-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .gallery-item:hover .delete-btn {
+            opacity: 1;
+        }
+
+        .delete-btn:hover {
+            background: #ff4757;
+            color: white;
+        }
+
+        .permanent-item .delete-btn {
+            display: none !important;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            position: relative;
+            margin: auto;
+            padding: 0;
+            width: 90%;
+            max-width: 1200px;
+            max-height: 90%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .modal img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .close:hover {
+            color: #ff6b6b;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .container {
+                padding: 20px 15px;
+            }
+        }
+
+        #fileInput {
+            display: none;
+        }
+    </style>
+</head>
+
+
+
+<body>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            backdrop-filter: blur(10px);
+            padding-top: 80px; /* Space for fixed navbar */
+        }
+
+        .main_box {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(135deg, #667eea00 0%, #764ba200 100%);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .navbar_content {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 15px 30px;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .logo_main {
+            flex-shrink: 0;
+        }
+
+        .logo1 {
+            color: white;
+            text-decoration: none;
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .logo1:hover {
+            color: #f0f0f0;
+        }
+
+        .menu1 {
+            display: flex;
+            align-items: center;
+            flex: 1;
+        }
+
+        .menu1 ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .menu1 li {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .menu1 li a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            padding: 8px 12px;
+            border-radius: 5px;
+        }
+
+        .menu1 li a:hover {
+            background-color: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        .menu1 li i {
+            color: white;
+            font-size: 16px;
+        }
+
+        /* Smaller screens - reduce spacing but keep everything visible */
+        @media screen and (max-width: 1200px) {
+            .navbar_content {
+                gap: 20px;
+                padding: 12px 20px;
+            }
+            
+            .menu1 ul {
+                gap: 15px;
+            }
+            
+            .logo1 {
+                font-size: 20px;
+            }
+            
+            .menu1 li a {
+                font-size: 14px;
+                padding: 6px 8px;
+            }
+        }
+
+        @media screen and (max-width: 900px) {
+            .navbar_content {
+                gap: 15px;
+                padding: 10px 15px;
+            }
+            
+            .menu1 ul {
+                gap: 10px;
+            }
+            
+            .logo1 {
+                font-size: 18px;
+            }
+            
+            .menu1 li a {
+                font-size: 12px;
+                padding: 4px 6px;
+            }
+            
+            .menu1 li i {
+                font-size: 14px;
+            }
+        }
+
+        /* Demo content */
+        .content {
+            padding: 40px 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .content h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .content p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+
+
+
+
+
+
+    
+    <div class="main_box">
+        <div class="navbar_content">
+            <div class="logo_main">
+                <a class="logo1" href="#">ASU PHOTOGRAPHY</a>
+            </div>
+            
+            <div class="menu1">
+                <ul>
+                  <li>
+                        <i class="fa-solid fa-house"></i>
+                        <a href="new.html">Home</a>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-image"></i>
+                        <a href="addimage4.html">Gallery</a>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        <a href="sortcuts.html">Shortcuts</a>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-photo-film"></i>
+                        <a href="exibits.html">Exhibits</a>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-calendar-days"></i>
+                        <a href="newEvent.html">Events</a>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-store"></i>
+                        <a href="store.html">Store</a>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-phone"></i>
+                        <a href="conatact.html">Contact</a>
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-comments"></i>
+                        <a href="#">Feedback</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Demo content -->
+    
+</body>
+</html>
+
+
+
+
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Pre-Wedding Photography</h2>
+            <p class="section-subtitle">
+                Capturing the beautiful moments before your special day. Every glance, every smile, 
+                every tender moment that tells your unique love story in the most authentic way.
+            </p>
+        </div>
+
+        <div style="text-align: center;">
+            <!-- <button class="add-image-btn" onclick="document.getElementById('fileInput').click()">
+                + Add New Image
+            </button> -->
+            <input type="file" id="fileInput" accept="image/*" multiple onchange="addImages(event)">
+        </div>
+
+        <div class="gallery-grid" id="galleryGrid">
+            <!-- Default images will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Text Modal -->
+    <div id="textModal" class="text-modal">
+        <div class="text-modal-content">
+            <h3>Add Image Text</h3>
+            <textarea id="imageTextInput" placeholder="Enter text for this image..."></textarea>
+            <select id="textPosition">
+                <option value="below">Below Image</option>
+                <option value="above">Above Image</option>
+            </select>
+            <div class="text-modal-buttons">
+                <button class="cancel-btn" onclick="closeTextModal()">Cancel</button>
+                <button class="save-btn" onclick="saveImageText()">Save</button>
+            </div>
+        </div>
+    </div>
+    <div id="imageModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div class="modal-content">
+            <img id="modalImage" src="" alt="Full size image">
+        </div>
+    </div>
+
+    <script>
+        let images = [];
+        let currentEditingId = null;
+
+        // Default permanent images - यहाँ आप अपनी इच्छा के अनुसार images add कर सकते हैं
+        const defaultImages = [
+            {
+                src: 'http://theweddingcapturestudio.com/wp-content/uploads/2025/03/E6A1037-scaled.jpg',
+                name: 'Romantic Couple Photo',
+                id: 'default1',
+                width: 100,
+                height: 1000,
+                text: 'Love is in the air - A perfect moment captured forever',
+                textPosition: 'below',
+                isPermanent: true
+            },
+             {
+                src: 'http://theweddingcapturestudio.com/wp-content/uploads/2025/03/E6A1103-scaled.jpg',
+                name: 'Romantic Couple Photo',
+                id: 'default1',
+                width: 100,
+                height: 1000,
+                text: 'Love is in the air - A perfect moment captured forever',
+                textPosition: 'below',
+                isPermanent: true
+            },
+            {
+                src: 'http://theweddingcapturestudio.com/wp-content/uploads/2025/03/E6A1066-scaled.jpg',
+                name: 'Beautiful Wedding Couple',
+                id: 'default2',
+               width: 100,
+                height: 1000,
+                text: 'Every love story is beautiful, but ours is my favorite',
+                textPosition: 'below',
+                isPermanent: true
+            },
+            {
+                src: 'http://theweddingcapturestudio.com/wp-content/uploads/2025/03/E6A1170-scaled.jpg',
+                name: 'Pre-wedding Shoot',
+                id: 'default3',
+               width: 100,
+                height: 1000,
+                text: 'Together is a wonderful place to be',
+                textPosition: 'below',
+                isPermanent: true
+            },
+            {
+                src: 'http://theweddingcapturestudio.com/wp-content/uploads/2025/03/E6A1763-scaled.jpg',
+                name: 'Couple Portrait',
+                id: 'default4',
+                width: 100,
+                height: 1000,
+                text: 'You are my today and all of my tomorrows',
+                textPosition: 'below',
+                isPermanent: true
+            },
+            {
+                src: 'http://theweddingcapturestudio.com/wp-content/uploads/2025/03/E6A1709-scaled.jpg',
+                name: 'Couple Portrait',
+                id: 'default4',
+                width: 100,
+                height: 1000,
+                text: 'You are my today and all of my tomorrows',
+                textPosition: 'below',
+                isPermanent: true
+            },
+            {
+                src: 'http://theweddingcapturestudio.com/wp-content/uploads/2025/03/E6A1006-scaled.jpg',
+                name: 'Couple Portrait',
+                id: 'default4',
+                width: 100,
+                height: 1000,
+                text: 'You are my today and all of my tomorrows',
+                textPosition: 'below',
+                isPermanent: true
+            },
+            {
+                src: 'http://theweddingcapturestudio.com/wp-content/uploads/2025/03/E6A1738-scaled.jpg',
+                name: 'Couple Portrait',
+                id: 'default4',
+                width: 100,
+                height: 1000,
+                text: 'You are my today and all of my tomorrows',
+                textPosition: 'below',
+                isPermanent: true
+            },
+            {
+                src: 'http://theweddingcapturestudio.com/wp-content/uploads/2025/03/E6A0914-scaled.jpg',
+                name: 'Couple Portrait',
+                id: 'default4',
+                width: 100,
+                height: 1000,
+                text: 'You are my today and all of my tomorrows',
+                textPosition: 'below',
+                isPermanent: true
+            },
+             {
+                src: 'http://theweddingcapturestudio.com/wp-content/uploads/2025/03/3F0A8364-scaled.jpg',
+                name: 'Couple Portrait',
+                id: 'default4',
+                width: 100,
+                height: 1000,
+                text: 'You are my today and all of my tomorrows',
+                textPosition: 'below',
+                isPermanent: true
+            },
+            {
+                src: 'http://theweddingcapturestudio.com/wp-content/uploads/2025/03/R_V09018-scaled.jpg',
+                name: 'Couple Portrait',
+                id: 'default4',
+                width: 100,
+                height: 1000,
+                text: 'You are my today and all of my tomorrows',
+                textPosition: 'below',
+                isPermanent: true
+            },
+            {
+                src: 'http://theweddingcapturestudio.com/wp-content/uploads/2025/03/R_V08965-1-scaled.jpg',
+                name: 'Couple Portrait',
+                id: 'default4',
+                width: 100,
+                height: 1000,
+                text: 'You are my today and all of my tomorrows',
+                textPosition: 'below',
+                isPermanent: true
+            },
+            {
+                src: 'http://theweddingcapturestudio.com/wp-content/uploads/2025/03/DSC06045-scaled.jpg',
+                name: 'Couple Portrait',
+                id: 'default4',
+                width: 100,
+                height: 1000,
+                text: 'You are my today and all of my tomorrows',
+                textPosition: 'below',
+                isPermanent: true
+            },
+            {
+                src: 'http://theweddingcapturestudio.com/wp-content/uploads/2025/03/DSC06269-scaled.jpg',
+                name: 'Couple Portrait',
+                id: 'default4',
+                width: 100,
+                height: 1000,
+                text: 'You are my today and all of my tomorrows',
+                textPosition: 'below',
+                isPermanent: true
+            },
+
+        ];
+
+        // Initialize gallery with default images
+        function initializeGallery() {
+            images = [...defaultImages];
+            const galleryGrid = document.getElementById('galleryGrid');
+            galleryGrid.innerHTML = '';
+            
+            images.forEach(imageData => {
+                createImageElement(imageData);
+            });
+        }
+
+        function addImages(event) {
+            const files = event.target.files;
+            
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    const img = new Image();
+                    img.onload = function() {
+                        const imageData = {
+                            src: e.target.result,
+                            name: file.name,
+                            id: Date.now() + i,
+                            width: this.width,
+                            height: this.height,
+                            text: '',
+                            textPosition: 'below',
+                            isPermanent: false
+                        };
+                        
+                        images.push(imageData);
+                        createImageElement(imageData);
+                    };
+                    img.src = e.target.result;
+                };
+                
+                reader.readAsDataURL(file);
+            }
+            
+            // Reset file input
+            event.target.value = '';
+        }
+
+        function createImageElement(imageData) {
+            const galleryGrid = document.getElementById('galleryGrid');
+            const galleryItem = document.createElement('div');
+            galleryItem.className = `gallery-item ${imageData.isPermanent ? 'permanent-item' : ''}`;
+            galleryItem.setAttribute('data-id', imageData.id);
+            
+            // Calculate aspect ratio and set appropriate height
+            const aspectRatio = imageData.height / imageData.width;
+            const containerWidth = 300; // Base width for calculation
+            const calculatedHeight = Math.max(200, Math.min(500, containerWidth * aspectRatio));
+            
+            const textElement = imageData.text ? 
+                `<div class="image-text ${imageData.textPosition}">${imageData.text}</div>` : '';
+            
+            const textAbove = imageData.textPosition === 'above' ? textElement : '';
+            const textBelow = imageData.textPosition === 'below' ? textElement : '';
+            
+            // Show delete button only for non-permanent images
+            const deleteButton = imageData.isPermanent ? '' : 
+                `<button class="delete-btn" onclick="deleteImage('${imageData.id}')" title="Delete Image">×</button>`;
+            
+            galleryItem.innerHTML = `
+                ${textAbove}
+                <div style="position: relative; overflow: hidden; border-radius: ${textAbove ? '0' : '15px 15px'} ${textBelow ? '0' : '15px 15px'};">
+                    <img src="${imageData.src}" alt="${imageData.name}" 
+                         onclick="openModal('${imageData.src}')" 
+                         style="height: ${calculatedHeight}px;">
+                    <div class="gallery-overlay">
+                        <div class="overlay-text">View Full Size</div>
+                    </div>
+                    <button class="edit-text-btn" onclick="editImageText('${imageData.id}')" title="Edit Text">T</button>
+                    ${deleteButton}
+                </div>
+                ${textBelow}
+            `;
+            
+            galleryGrid.appendChild(galleryItem);
+            
+            // Add animation
+            setTimeout(() => {
+                galleryItem.style.opacity = '0';
+                galleryItem.style.transform = 'translateY(20px)';
+                galleryItem.offsetHeight; // Trigger reflow
+                galleryItem.style.transition = 'all 0.5s ease';
+                galleryItem.style.opacity = '1';
+                galleryItem.style.transform = 'translateY(0)';
+            }, 10);
+        }
+
+        function editImageText(id) {
+            currentEditingId = id;
+            const image = images.find(img => img.id == id);
+            if (image) {
+                document.getElementById('imageTextInput').value = image.text || '';
+                document.getElementById('textPosition').value = image.textPosition || 'below';
+                document.getElementById('textModal').style.display = 'block';
+            }
+        }
+
+        function saveImageText() {
+            if (currentEditingId) {
+                const text = document.getElementById('imageTextInput').value;
+                const position = document.getElementById('textPosition').value;
+                
+                const imageIndex = images.findIndex(img => img.id == currentEditingId);
+                if (imageIndex !== -1) {
+                    images[imageIndex].text = text;
+                    images[imageIndex].textPosition = position;
+                    
+                    // Recreate the element with updated text
+                    const element = document.querySelector(`[data-id="${currentEditingId}"]`);
+                    if (element) {
+                        element.remove();
+                        createImageElement(images[imageIndex]);
+                    }
+                }
+            }
+            closeTextModal();
+        }
+
+        function closeTextModal() {
+            document.getElementById('textModal').style.display = 'none';
+            currentEditingId = null;
+        }
+
+        function deleteImage(id) {
+            const image = images.find(img => img.id == id);
+            if (image && image.isPermanent) {
+                alert('This is a permanent image and cannot be deleted.');
+                return;
+            }
+            
+            images = images.filter(img => img.id != id);
+            const element = document.querySelector(`[data-id="${id}"]`);
+            if (element) {
+                element.style.transition = 'all 0.3s ease';
+                element.style.transform = 'scale(0)';
+                element.style.opacity = '0';
+                setTimeout(() => {
+                    element.remove();
+                }, 300);
+            }
+        }
+
+        function openModal(src) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            modal.style.display = 'block';
+            modalImg.src = src;
+        }
+
+        function closeModal() {
+            document.getElementById('imageModal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside the image
+        window.onclick = function(event) {
+            const modal = document.getElementById('imageModal');
+            const textModal = document.getElementById('textModal');
+            if (event.target === modal) {
+                closeModal();
+            } else if (event.target === textModal) {
+                closeTextModal();
+            }
+        }
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+                closeTextModal();
+            }
+        });
+
+        // Initialize gallery when page loads
+        window.addEventListener('load', initializeGallery);
+    </script>
+</body>
+</html>
